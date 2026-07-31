@@ -1,2 +1,120 @@
-<h1>Bievenido a Michigeeks</h1>
-<h2>Pronto tendrás todos nuestros productos para tu descarga</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michigeeks - Licencias Office Originales</title>
+
+<link rel="stylesheet" href="bootstrap.css">
+
+<style>
+  .version-panel {
+    transition: flex 0.5s ease;
+  }
+  .version-panel:hover,
+  .version-panel:focus-within {
+    flex: 1.08;
+  }
+
+  /* Glow en hover usando el color del propio panel (--bs-primary-rgb / --bs-info-rgb) */
+  .panel-2024 { --panel-rgb: var(--bs-primary-rgb); }
+  .panel-365  { --panel-rgb: var(--bs-info-rgb); }
+
+  .version-panel:hover,
+  .version-panel:focus-within {
+    box-shadow: inset 0 0 120px rgba(var(--panel-rgb), 0.35);
+  }
+  .version-panel:hover .version-title,
+  .version-panel:focus-within .version-title {
+    text-shadow: 0 0 22px rgba(var(--panel-rgb), 0.85);
+  }
+  .version-panel:hover .btn-download,
+  .version-panel:focus-within .btn-download {
+    box-shadow: 0 0 28px rgba(var(--panel-rgb), 0.65);
+  }
+</style>
+</head>
+<header>
+  <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Michigeeks</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Inicio
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Manuales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Office 2024 LTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Office 365 Anual</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+<body>
+
+<div class="d-flex flex-column flex-md-row" style="min-height:100vh;">
+
+  <!-- VERSIÓN 2024 -->
+  <section class="version-panel panel-2024 d-flex align-items-center justify-content-center text-center p-5 flex-fill"
+            tabindex="0" aria-label="Versión 2024">
+    <div class="mx-auto" style="max-width:420px;">
+      <span class="badge bg-primary text-uppercase mb-3">Licencia permanente</span>
+      <h1 class="version-title display-5 fw-bold mb-3">Office 2024 LTS Professional</h1>
+      <p class="text-secondary mb-4">
+        Instálala una vez y úsala para siempre. Sin suscripción ni conexión
+        obligatoria a internet: todas las funciones principales, directo en tu equipo.
+      </p>
+      <a href="2024.exe" class="btn btn-primary btn-lg btn-download" download>
+        Descárgalo ahora
+      </a>
+
+    </div>
+  </section>
+
+  <!-- VERSIÓN 365 -->
+  <section class="version-panel panel-365 d-flex align-items-center justify-content-center text-center p-5 flex-fill"
+            tabindex="0" aria-label="Versión 365">
+    <div class="mx-auto" style="max-width:420px;">
+      <span class="badge bg-info text-dark text-uppercase mb-3">Suscripción Anual</span>
+      <h1 class="version-title display-5 fw-bold mb-3">Office 365</h1>
+      <p class="text-secondary mb-4">
+        Siempre actualizada. Incluye nuevas funciones, soporte prioritario
+        y sincronización en la nube mientras tu suscripción esté activa.
+      </p>
+      <a href="365.exe" class="btn btn-info btn-lg btn-download" download>
+        Descárgalo ahora
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.querySelectorAll('.btn-download').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const original = btn.textContent;
+      btn.textContent = 'Iniciando descarga…';
+      btn.classList.add('disabled');
+      setTimeout(function () {
+        btn.textContent = original;
+        btn.classList.remove('disabled');
+      }, 1800);
+    });
+  });
+</script>
+
+</body>
+</html>
