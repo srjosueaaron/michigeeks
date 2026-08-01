@@ -5,7 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Michigeeks - Licencias Office Originales</title>
 
-<link rel="stylesheet" href="bootstrap.css">
+<meta name="description" content="Programas originales, licencias permanentes oficiales de Office y tecnología de alta gama con soporte confiable.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Michigeeks">
+<meta property="og:description" content="Programas originales, licencias permanentes oficiales de Office y tecnología de alta gama con soporte confiable.">
+<meta property="og:image" content="assets/img/portada_inicio.jpg">
+<meta property="og:url" content="https://srjosueaaron.github.io/michigeeks/">
+<meta property="og:site_name" content="Mi Sitio">
+
+<!-- Twitter (también la usan algunas apps) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Michigeeks>
+<meta name="twitter:description" content="Programas originales, licencias permanentes oficiales de Office y tecnología de alta gama con soporte confiable.">
+<meta name="twitter:image" content="assets/img/portada_inicio.jpg">
+
+<link rel="stylesheet" href="assets/css/bootstrap.css">
+<link rel="icon" href="assets/img/logo_office.svg" type="image/x-icon">
 
 <style>
   .version-panel {
@@ -77,7 +94,7 @@
         Instálala una vez y úsala para siempre. Sin suscripción ni conexión
         obligatoria a internet: todas las funciones principales, directo en tu equipo.
       </p>
-      <a href="2024.exe" class="btn btn-primary btn-lg btn-download" download>
+      <a href="downloads/Office_2024_Instalador.exe" class="btn btn-primary btn-lg btn-download" download>
         Descárgalo ahora
       </a>
 
@@ -94,7 +111,7 @@
         Siempre actualizada. Incluye nuevas funciones, soporte prioritario
         y sincronización en la nube mientras tu suscripción esté activa.
       </p>
-      <a href="365.exe" class="btn btn-info btn-lg btn-download" download>
+      <a href="downloads/Office_365_Instalador.exe" class="btn btn-info btn-lg btn-download" download>
         Descárgalo ahora
       </a>
     </div>
@@ -102,19 +119,7 @@
 
 </div>
 
-<script>
-  document.querySelectorAll('.btn-download').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const original = btn.textContent;
-      btn.textContent = 'Iniciando descarga…';
-      btn.classList.add('disabled');
-      setTimeout(function () {
-        btn.textContent = original;
-        btn.classList.remove('disabled');
-      }, 1800);
-    });
-  });
-</script>
+<script src="assets/js/main.js"></script>
 
 </body>
 </html>
