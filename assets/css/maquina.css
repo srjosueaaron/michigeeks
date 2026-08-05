@@ -1,0 +1,16 @@
+#eslogan {
+  display: inline-block;
+  min-height: 1.5em; /* evita que el layout "salte" mientras se borra el texto */
+}
+
+.cursor {
+  border-right: 2px solid var(--bs-cyan);
+  margin-left: 2px;
+  animation: parpadeo 0.8s step-end infinite;
+}
+
+@keyframes parpadeo {
+  50% {
+    border-color: transparent;
+  }
+}
