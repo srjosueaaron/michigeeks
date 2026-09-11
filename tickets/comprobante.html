@@ -54,6 +54,15 @@
             font-size: 28px;
         }
 
+        .fila-doble {
+            display: flex;
+            gap: 20px;
+        }
+
+        .fila-doble .campo {
+            flex: 1;
+        }
+
         .error {
             color: #b00020;
         }
@@ -70,28 +79,40 @@
 
     <div class="producto" id="producto"></div>
 
-
     <div class="campo">
-        <span class="label">Cliente</span>
-        <span class="valor" id="nombre"></span>
+        <span class="label">Total</span>
+        <span class="valor precio" id="monto"></span>
     </div>
 
-
     <div class="campo">
-        <span class="label">Correo</span>
+        <span class="label">Correo generado</span>
         <span class="valor" id="correo"></span>
     </div>
 
-
     <div class="campo">
-        <span class="label">Total</span>
-        <span class="valor precio" id="precio"></span>
+        <span class="label">Contraseña temporal</span>
+        <span class="valor" id="contrasena"></span>
     </div>
 
+    <div class="fila-doble">
+        <div class="campo">
+            <span class="label">Día de la transacción</span>
+            <span class="valor" id="diaTransaccion"></span>
+        </div>
+        <div class="campo">
+            <span class="label">Hora (CDMX)</span>
+            <span class="valor" id="horaTransaccion"></span>
+        </div>
+    </div>
 
     <div class="campo">
-        <span class="label">Folio</span>
-        <span class="valor" id="folio"></span>
+        <span class="label">Fecha de expiración</span>
+        <span class="valor" id="fechaExpiracion"></span>
+    </div>
+
+    <div class="campo">
+        <span class="label">Lugar de compra</span>
+        <span class="valor" id="lugar"></span>
     </div>
 
 </div>
@@ -124,6 +145,44 @@ function decodeData(codigo) {
 }
 
 
+function formatFecha(fechaStr) {
+
+    if (!fechaStr) {
+        return "—";
+    }
+
+    // Se arma con año/mes/día locales (sin new Date(string) directo)
+    // para evitar que el cambio de zona horaria recorra el día.
+    const [anio, mes, dia] = fechaStr.split("-").map(Number);
+    const fecha = new Date(anio, mes - 1, dia);
+
+    return fecha.toLocaleDateString("es-MX", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+}
+
+
+function formatMonto(monto) {
+
+    if (!monto) {
+        return "—";
+    }
+
+    const numero = Number(monto);
+
+    if (Number.isNaN(numero)) {
+        return monto;
+    }
+
+    return numero.toLocaleString("es-MX", {
+        style: "currency",
+        currency: "MXN"
+    });
+}
+
+
 function cargarComprobante() {
 
     const params = new URLSearchParams(window.location.search);
@@ -147,20 +206,29 @@ function cargarComprobante() {
 
         const datos = decodeData(codigo);
 
-        document.getElementById("nombre").textContent =
-            datos.nombre || "—";
+        document.getElementById("producto").textContent =
+            datos.producto || "—";
+
+        document.getElementById("monto").textContent =
+            formatMonto(datos.monto);
 
         document.getElementById("correo").textContent =
             datos.correo || "—";
 
-        document.getElementById("producto").textContent =
-            datos.producto || "—";
+        document.getElementById("contrasena").textContent =
+            datos.contrasena || "—";
 
-        document.getElementById("precio").textContent =
-            datos.precio || "—";
+        document.getElementById("diaTransaccion").textContent =
+            formatFecha(datos.diaTransaccion);
 
-        document.getElementById("folio").textContent =
-            datos.folio || "—";
+        document.getElementById("horaTransaccion").textContent =
+            datos.horaTransaccion || "—";
+
+        document.getElementById("fechaExpiracion").textContent =
+            formatFecha(datos.fechaExpiracion);
+
+        document.getElementById("lugar").textContent =
+            datos.lugar || "—";
 
     } catch (error) {
 
