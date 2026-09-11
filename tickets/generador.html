@@ -14,7 +14,7 @@
 <script>window.SITE_ROOT = "../";</script>
 <script src="../assets/js/header.js"></script>
 
-<div class="container py-5" style="max-width:640px;">
+<div class="container py-5" style="max-width:780px;">
   <div class="card bg-dark border-secondary-subtle shadow-lg">
     <div class="card-body p-4 p-md-5">
 
@@ -22,64 +22,78 @@
 
       <form onsubmit="return false;">
 
-        <div class="mb-3">
-          <label class="form-label" for="producto">Producto</label>
-          <select id="producto" class="form-select" onchange="actualizarCamposProducto()">
-            <option value="Office 365">Office 365</option>
-            <option value="Canva">Canva</option>
-          </select>
-        </div>
+        <div class="row g-3">
 
-        <div class="mb-3">
-          <label class="form-label" for="correo" id="labelCorreo">Correo electrónico generado</label>
-          <input id="correo" type="text" class="form-control" placeholder="cuenta.michigeeks@outlook.com">
-        </div>
-
-        <div class="mb-3" id="grupoContrasena">
-          <label class="form-label" for="contrasena">Contraseña temporal</label>
-          <input id="contrasena" type="text" class="form-control" placeholder="Temporal123">
-        </div>
-
-        <div class="mb-3 d-none" id="grupoDuracion">
-          <label class="form-label" for="duracion">Duración de la licencia (meses)</label>
-          <select id="duracion" class="form-select" onchange="actualizarFechaExpiracion()">
-            <option value="1">1 mes</option>
-            <option value="3">3 meses</option>
-            <option value="6">6 meses</option>
-            <option value="12" selected>12 meses</option>
-            <option value="24">24 meses</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="monto">Monto (MXN)</label>
-          <input id="monto" type="number" step="0.01" class="form-control" placeholder="199">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="diaTransaccion">Día de la transacción</label>
-          <input id="diaTransaccion" type="date" class="form-control" onchange="actualizarFechaExpiracion()">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Fecha de expiración</label>
-          <div class="form-control bg-transparent text-secondary" id="previsualizacionExpiracion">
-            Selecciona el día de la transacción
+          <div class="col-md-6">
+            <label class="form-label" for="producto">Producto</label>
+            <select id="producto" class="form-select" onchange="actualizarCamposProducto()">
+              <option value="Office 365">Office 365</option>
+              <option value="Canva">Canva</option>
+            </select>
           </div>
-          <div class="form-text">
-            Se calcula sola: +1 año para Office 365, o + la duración elegida para Canva.
+
+          <div class="col-md-6">
+            <label class="form-label" for="lugar">Lugar de compra</label>
+            <select id="lugar" class="form-select">
+              <option value="CDMX">CDMX</option>
+              <option value="Querétaro">Querétaro</option>
+            </select>
           </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="correo" id="labelCorreo">Correo electrónico generado</label>
+            <input id="correo" type="text" class="form-control" placeholder="cuenta.michigeeks@outlook.com">
+          </div>
+
+          <div class="col-md-6" id="grupoContrasena">
+            <label class="form-label" for="contrasena">Contraseña temporal</label>
+            <input id="contrasena" type="text" class="form-control" placeholder="Temporal123">
+          </div>
+
+          <div class="col-md-6 d-none" id="grupoDuracion">
+            <label class="form-label" for="duracion">Duración de la licencia (meses)</label>
+            <select id="duracion" class="form-select" onchange="actualizarFechaExpiracion()">
+              <option value="1">1 mes</option>
+              <option value="3">3 meses</option>
+              <option value="6">6 meses</option>
+              <option value="12" selected>12 meses</option>
+              <option value="24">24 meses</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="telefonoCliente">Número telefónico del cliente</label>
+            <input id="telefonoCliente" type="tel" class="form-control" placeholder="55 1234 5678">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="numeroPedido">Número de pedido</label>
+            <input id="numeroPedido" type="text" class="form-control" placeholder="MG-0001">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="monto">Monto (MXN)</label>
+            <input id="monto" type="number" step="0.01" class="form-control" placeholder="199">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="diaTransaccion">Día de la transacción</label>
+            <input id="diaTransaccion" type="date" class="form-control" onchange="actualizarFechaExpiracion()">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Fecha de expiración</label>
+            <div class="form-control bg-transparent text-secondary" id="previsualizacionExpiracion">
+              Selecciona el día de la transacción
+            </div>
+            <div class="form-text">
+              Se calcula sola: +1 año para Office 365, o + la duración elegida para Canva.
+            </div>
+          </div>
+
         </div>
 
-        <div class="mb-4">
-          <label class="form-label" for="lugar">Lugar de compra</label>
-          <select id="lugar" class="form-select">
-            <option value="CDMX">CDMX</option>
-            <option value="Querétaro">Querétaro</option>
-          </select>
-        </div>
-
-        <button type="button" class="btn btn-primary btn-lg w-100" onclick="generarURL()">
+        <button type="button" class="btn btn-primary btn-lg w-100 mt-4" onclick="generarURL()">
           Generar enlace
         </button>
 
@@ -122,6 +136,14 @@ function obtenerHoraCDMX() {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true
+    }).format(new Date());
+}
+
+// Locale "en-CA" da como resultado el formato ISO YYYY-MM-DD directo,
+// que es justo lo que espera un <input type="date">.
+function obtenerFechaHoyCDMX() {
+    return new Intl.DateTimeFormat("en-CA", {
+        timeZone: "America/Mexico_City"
     }).format(new Date());
 }
 
@@ -189,6 +211,8 @@ function generarURL() {
     const datos = {
         producto: producto,
         correo: document.getElementById("correo").value,
+        telefonoCliente: document.getElementById("telefonoCliente").value,
+        numeroPedido: document.getElementById("numeroPedido").value,
         monto: document.getElementById("monto").value,
         diaTransaccion: dia,
         horaTransaccion: obtenerHoraCDMX(),
@@ -222,7 +246,8 @@ async function copiarURL() {
     setTimeout(() => { boton.textContent = textoOriginal; }, 1500);
 }
 
-// Estado inicial del formulario (Office 365 seleccionado por defecto)
+// Estado inicial: Office 365 seleccionado y fecha de hoy (CDMX) precargada
+document.getElementById("diaTransaccion").value = obtenerFechaHoyCDMX();
 actualizarCamposProducto();
 
 </script>
