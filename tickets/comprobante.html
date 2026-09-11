@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Comprobante digital</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .comprobante {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .producto {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .label {
+            display: block;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 4px;
+        }
+
+        .valor {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .precio {
+            font-size: 28px;
+        }
+
+        .error {
+            color: #b00020;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="comprobante" id="comprobante">
+
+    <h1>Comprobante digital</h1>
+
+    <div class="producto" id="producto"></div>
+
+
+    <div class="campo">
+        <span class="label">Cliente</span>
+        <span class="valor" id="nombre"></span>
+    </div>
+
+
+    <div class="campo">
+        <span class="label">Correo</span>
+        <span class="valor" id="correo"></span>
+    </div>
+
+
+    <div class="campo">
+        <span class="label">Total</span>
+        <span class="valor precio" id="precio"></span>
+    </div>
+
+
+    <div class="campo">
+        <span class="label">Folio</span>
+        <span class="valor" id="folio"></span>
+    </div>
+
+</div>
+
+
+<script>
+
+function decodeData(codigo) {
+
+    // Volver de Base64 URL Safe a Base64 normal
+    let base64 = codigo
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
+
+    // Restaurar padding
+    while (base64.length % 4) {
+        base64 += "=";
+    }
+
+    const binary = atob(base64);
+
+    const bytes = Uint8Array.from(
+        binary,
+        char => char.charCodeAt(0)
+    );
+
+    const json = new TextDecoder().decode(bytes);
+
+    return JSON.parse(json);
+}
+
+
+function cargarComprobante() {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const codigo = params.get("d");
+
+    if (!codigo) {
+
+        document.getElementById("comprobante").innerHTML = `
+            <h1>Enlace inválido</h1>
+            <p class="error">
+                No se encontraron datos para mostrar.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    try {
+
+        const datos = decodeData(codigo);
+
+        document.getElementById("nombre").textContent =
+            datos.nombre || "—";
+
+        document.getElementById("correo").textContent =
+            datos.correo || "—";
+
+        document.getElementById("producto").textContent =
+            datos.producto || "—";
+
+        document.getElementById("precio").textContent =
+            datos.precio || "—";
+
+        document.getElementById("folio").textContent =
+            datos.folio || "—";
+
+    } catch (error) {
+
+        document.getElementById("comprobante").innerHTML = `
+            <h1>Enlace inválido</h1>
+            <p class="error">
+                No fue posible interpretar la información.
+            </p>
+        `;
+    }
+}
+
+
+cargarComprobante();
+
+</script>
+
+</body>
+</html>
