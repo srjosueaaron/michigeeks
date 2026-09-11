@@ -1,161 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michigeeks - Comprobante digital</title>
 
-    <title>Comprobante digital</title>
-
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-            padding: 40px 20px;
-        }
-
-        .comprobante {
-            max-width: 500px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.08);
-        }
-
-        h1 {
-            margin-top: 0;
-        }
-
-        .producto {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 25px;
-        }
-
-        .campo {
-            margin-bottom: 18px;
-        }
-
-        .label {
-            display: block;
-            font-size: 13px;
-            color: #777;
-            margin-bottom: 4px;
-        }
-
-        .valor {
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        .precio {
-            font-size: 28px;
-        }
-
-        .fila-doble {
-            display: flex;
-            gap: 20px;
-        }
-
-        .fila-doble .campo {
-            flex: 1;
-        }
-
-        .error {
-            color: #b00020;
-        }
-
-    </style>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/maquina.css">
+<link rel="icon" href="../assets/img/logo_office.svg" type="image/x-icon">
 </head>
 
-
 <body>
+<script>window.SITE_ROOT = "../";</script>
+<script src="../assets/js/header.js"></script>
 
-<div class="comprobante" id="comprobante">
+<div class="container py-5" style="max-width:560px;" id="comprobante">
 
-    <h1>Comprobante digital</h1>
+  <div class="card border-0 shadow-lg overflow-hidden">
 
-    <div class="producto" id="producto"></div>
-
-    <div class="campo">
-        <span class="label">Total</span>
-        <span class="valor precio" id="monto"></span>
-    </div>
-
-    <div class="campo">
-        <span class="label">Correo generado</span>
-        <span class="valor" id="correo"></span>
-    </div>
-
-    <div class="campo">
-        <span class="label">Contraseña temporal</span>
-        <span class="valor" id="contrasena"></span>
-    </div>
-
-    <div class="fila-doble">
-        <div class="campo">
-            <span class="label">Día de la transacción</span>
-            <span class="valor" id="diaTransaccion"></span>
+    <!-- Banda de estado: color según el producto (se define por JS) -->
+    <div class="p-4 text-center text-white" id="bandaEstado">
+      <div class="mb-2" style="font-size:2.25rem; line-height:1;">✅</div>
+      <h1 class="h5 fw-bold mb-3" id="tituloProducto">Tu compra fue aprobada en Michigeeks</h1>
+      <div class="d-flex justify-content-center gap-5 small">
+        <div>
+          <div class="text-uppercase opacity-75" style="font-size:.7rem;">Fecha</div>
+          <div class="fw-semibold" id="diaTransaccion">—</div>
         </div>
-        <div class="campo">
-            <span class="label">Hora (CDMX)</span>
-            <span class="valor" id="horaTransaccion"></span>
+        <div>
+          <div class="text-uppercase opacity-75" style="font-size:.7rem;">Hora (CDMX)</div>
+          <div class="fw-semibold" id="horaTransaccion">—</div>
         </div>
+      </div>
     </div>
 
-    <div class="campo">
-        <span class="label">Fecha de expiración</span>
-        <span class="valor" id="fechaExpiracion"></span>
-    </div>
+    <!-- Cuerpo del comprobante -->
+    <div class="card-body bg-dark p-4 p-md-5">
 
-    <div class="campo">
-        <span class="label">Lugar de compra</span>
-        <span class="valor" id="lugar"></span>
-    </div>
+      <div class="text-center mb-4">
+        <div class="text-secondary text-uppercase small mb-1">Monto</div>
+        <div class="display-6 fw-bold text-cyan" id="monto">—</div>
+      </div>
 
+      <div class="mb-3">
+        <label class="form-label text-secondary small">Correo electrónico</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="correo" readonly>
+          <button class="btn btn-outline-info" type="button" onclick="copiarCampo('correo', this)">Copiar</button>
+        </div>
+      </div>
+
+      <div class="mb-4" id="grupoContrasena">
+        <label class="form-label text-secondary small">Contraseña temporal</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="contrasena" readonly>
+          <button class="btn btn-outline-info" type="button" onclick="copiarCampo('contrasena', this)">Copiar</button>
+        </div>
+      </div>
+
+      <div class="row text-center border-top border-secondary-subtle pt-4">
+        <div class="col-6">
+          <div class="text-secondary text-uppercase small mb-1">Expira</div>
+          <div class="fw-semibold" id="fechaExpiracion">—</div>
+        </div>
+        <div class="col-6">
+          <div class="text-secondary text-uppercase small mb-1">Lugar</div>
+          <div class="fw-semibold" id="lugar">—</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/frases.js"></script>
+<script src="../assets/js/typewriter.js"></script>
 
 <script>
 
 function decodeData(codigo) {
-
-    // Volver de Base64 URL Safe a Base64 normal
-    let base64 = codigo
-        .replace(/-/g, "+")
-        .replace(/_/g, "/");
-
-    // Restaurar padding
-    while (base64.length % 4) {
-        base64 += "=";
-    }
-
+    let base64 = codigo.replace(/-/g, "+").replace(/_/g, "/");
+    while (base64.length % 4) { base64 += "="; }
     const binary = atob(base64);
-
-    const bytes = Uint8Array.from(
-        binary,
-        char => char.charCodeAt(0)
-    );
-
+    const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
     const json = new TextDecoder().decode(bytes);
-
     return JSON.parse(json);
 }
 
-
 function formatFecha(fechaStr) {
-
-    if (!fechaStr) {
-        return "—";
-    }
-
-    // Se arma con año/mes/día locales (sin new Date(string) directo)
-    // para evitar que el cambio de zona horaria recorra el día.
+    if (!fechaStr) { return "—"; }
     const [anio, mes, dia] = fechaStr.split("-").map(Number);
     const fecha = new Date(anio, mes - 1, dia);
-
     return fecha.toLocaleDateString("es-MX", {
         day: "numeric",
         month: "long",
@@ -163,84 +100,72 @@ function formatFecha(fechaStr) {
     });
 }
 
-
 function formatMonto(monto) {
-
-    if (!monto) {
-        return "—";
-    }
-
+    if (!monto) { return "—"; }
     const numero = Number(monto);
-
-    if (Number.isNaN(numero)) {
-        return monto;
-    }
-
-    return numero.toLocaleString("es-MX", {
-        style: "currency",
-        currency: "MXN"
-    });
+    if (Number.isNaN(numero)) { return monto; }
+    return numero.toLocaleString("es-MX", { style: "currency", currency: "MXN" });
 }
 
+async function copiarCampo(id, boton) {
+    const input = document.getElementById(id);
+    await navigator.clipboard.writeText(input.value);
+    const textoOriginal = boton.textContent;
+    boton.textContent = "✓ Copiado";
+    setTimeout(() => { boton.textContent = textoOriginal; }, 1500);
+}
 
 function cargarComprobante() {
 
     const params = new URLSearchParams(window.location.search);
-
     const codigo = params.get("d");
 
     if (!codigo) {
-
         document.getElementById("comprobante").innerHTML = `
-            <h1>Enlace inválido</h1>
-            <p class="error">
-                No se encontraron datos para mostrar.
-            </p>
+            <div class="alert alert-danger">
+                <h1 class="h5 mb-1">Enlace inválido</h1>
+                <p class="mb-0">No se encontraron datos para mostrar.</p>
+            </div>
         `;
-
         return;
     }
 
-
     try {
-
         const datos = decodeData(codigo);
+        const esOffice = datos.producto === "Office 365";
 
-        document.getElementById("producto").textContent =
-            datos.producto || "—";
+        document.getElementById("tituloProducto").textContent =
+            `Tu compra de ${datos.producto || "tu producto"} fue aprobada en Michigeeks`;
 
-        document.getElementById("monto").textContent =
-            formatMonto(datos.monto);
+        // Color de la banda según el producto, usando las variables de Vapor
+        document.getElementById("bandaEstado").style.background = esOffice
+            ? "linear-gradient(135deg, var(--bs-primary), var(--bs-pink))"
+            : "linear-gradient(135deg, var(--bs-success), var(--bs-cyan))";
 
-        document.getElementById("correo").textContent =
-            datos.correo || "—";
+        document.getElementById("diaTransaccion").textContent = formatFecha(datos.diaTransaccion);
+        document.getElementById("horaTransaccion").textContent = datos.horaTransaccion || "—";
+        document.getElementById("monto").textContent = formatMonto(datos.monto);
+        document.getElementById("correo").value = datos.correo || "—";
 
-        document.getElementById("contrasena").textContent =
-            datos.contrasena || "—";
+        if (esOffice) {
+            document.getElementById("grupoContrasena").classList.remove("d-none");
+            document.getElementById("contrasena").value = datos.contrasena || "—";
+        } else {
+            document.getElementById("grupoContrasena").remove();
+        }
 
-        document.getElementById("diaTransaccion").textContent =
-            formatFecha(datos.diaTransaccion);
-
-        document.getElementById("horaTransaccion").textContent =
-            datos.horaTransaccion || "—";
-
-        document.getElementById("fechaExpiracion").textContent =
-            formatFecha(datos.fechaExpiracion);
-
-        document.getElementById("lugar").textContent =
-            datos.lugar || "—";
+        document.getElementById("fechaExpiracion").textContent = formatFecha(datos.fechaExpiracion);
+        document.getElementById("lugar").textContent = datos.lugar || "—";
 
     } catch (error) {
-
         document.getElementById("comprobante").innerHTML = `
-            <h1>Enlace inválido</h1>
-            <p class="error">
-                No fue posible interpretar la información.
-            </p>
+            <div class="alert alert-danger">
+                <h1 class="h5 mb-1">Enlace inválido</h1>
+                <p class="mb-0">No fue posible interpretar la información.</p>
+            </div>
         `;
     }
 }
-
 
 cargarComprobante();
 

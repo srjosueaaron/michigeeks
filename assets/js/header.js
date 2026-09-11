@@ -8,12 +8,20 @@
 // funciona igual abriendo el archivo directo (file://) o en GitHub Pages,
 // sin necesidad de fetch() ni de un servidor local.
 
+// SITE_ROOT permite reusar este mismo header.js desde subcarpetas
+// (por ejemplo tickets/generador.html). Antes de llamar a header.js,
+// en páginas dentro de una subcarpeta agrega:
+//   <script>window.SITE_ROOT = "../";</script>
+// En páginas de la raíz (index.html, manuales.html, etc.) no hace falta
+// definir nada: se usa "" por defecto y todo funciona como hasta ahora.
+const ROOT = window.SITE_ROOT || "";
+
 document.write(`
 <header>
   <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <img src="assets/img/michi-corazon.png" alt="Michigeeks" height="50" class="me-2">
+      <a class="navbar-brand d-flex align-items-center" href="${ROOT}index.html">
+        <img src="${ROOT}assets/img/michi-corazon.png" alt="Michigeeks" height="50" class="me-2">
         Michigeeks
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,18 +30,18 @@ document.write(`
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto" id="navMenu">
           <li class="nav-item">
-            <a class="nav-link" href="index.html" data-page="index.html">Inicio
+            <a class="nav-link" href="${ROOT}index.html" data-page="index.html">Inicio
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="manuales.html" data-page="manuales.html">Manuales</a>
+            <a class="nav-link" href="${ROOT}manuales.html" data-page="manuales.html">Manuales</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="office2024.html" data-page="office2024.html">Office 2024 LTS</a>
+            <a class="nav-link" href="${ROOT}office2024.html" data-page="office2024.html">Office 2024 LTS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="office365.html" data-page="office365.html">Office 365 Anual</a>
+            <a class="nav-link" href="${ROOT}office365.html" data-page="office365.html">Office 365 Anual</a>
           </li>
         </ul>
       </div>
