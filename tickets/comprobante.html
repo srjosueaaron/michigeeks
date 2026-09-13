@@ -238,7 +238,7 @@ function cargarComprobante() {
         document.getElementById("lugar").textContent = datos.lugar || "—";
 
         // Botón de WhatsApp con mensaje pre-armado, incluyendo el número de pedido
-        const mensajeWhatsapp = `Hola Michi, quisiera soporte para mi compra de ${datos.numeroPedido || "mi pedido"}`;
+        const mensajeWhatsapp = `Hola Aaron! Quisiera soporte para mi compra de *${datos.producto || "mi pedido"}.* Realicé mi compra el día ${ formatFecha(datos.diaTransaccion)  || "N/A"}`;
         document.getElementById("btnWhatsapp").href =
             `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensajeWhatsapp)}`;
 
