@@ -208,7 +208,7 @@ function cargarComprobante() {
         const esOffice = datos.producto === "Office 365";
 
         document.getElementById("tituloProducto").textContent =
-            `Tu compra de ${datos.producto || "tu producto"} fue aprobada en Michigeeks`;
+            `Felicidades ${datos.nombreCliente || "cliente"}, por tu compra de ${datos.producto || "tu producto"} en Michigeeks.`;
 
         document.getElementById("logoProducto").src = esOffice
             ? "../assets/img/logo_office2.png"

@@ -40,6 +40,11 @@
             </select>
           </div>
 
+          <div class="col-12">
+            <label class="form-label" for="nombreCliente">Nombre del cliente</label>
+            <input id="nombreCliente" type="text" class="form-control" placeholder="Aarón Rivero">
+          </div>
+
           <div class="col-md-6">
             <label class="form-label" for="correo" id="labelCorreo">Correo electrónico</label>
             <input id="correo" type="text" class="form-control" placeholder="20987n@office365.net">
@@ -208,6 +213,7 @@ function generarURL() {
 
     const datos = {
         producto: producto,
+        nombreCliente: document.getElementById("nombreCliente").value,
         correo: document.getElementById("correo").value,
         telefonoCliente: document.getElementById("telefonoCliente").value,
         numeroPedido: document.getElementById("numeroPedido").value,
