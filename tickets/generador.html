@@ -18,9 +18,9 @@
   <div class="card bg-dark border-secondary-subtle shadow-lg">
     <div class="card-body p-4 p-md-5">
 
-      <h1 class="h3 fw-bold mb-4 text-cyan">Generador de comprobante</h1>
+      <h1 class="h3 fw-bold mb-4 text-cyan">Generador de Tickets</h1>
 
-      <form onsubmit="return false;">
+      <form id="formTicket" onsubmit="return false;">
 
         <div class="row g-3">
 
@@ -28,21 +28,21 @@
             <label class="form-label" for="producto">Producto</label>
             <select id="producto" class="form-select" onchange="actualizarCamposProducto()">
               <option value="Office 365">Office 365</option>
-              <option value="Canva">Canva</option>
+              <option value="Canva">Canva Pro</option>
             </select>
           </div>
 
           <div class="col-md-6">
             <label class="form-label" for="lugar">Lugar de compra</label>
             <select id="lugar" class="form-select">
-              <option value="CDMX">CDMX</option>
-              <option value="Querétaro">Querétaro</option>
+              <option value="CDMX">Online - FB Aaron Rivero</option>
+              <option value="Querétaro">C. Ignacio Allende Sur 6, Centro, 76000 Santiago de Querétaro, Qro.</option>
             </select>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label" for="correo" id="labelCorreo">Correo electrónico generado</label>
-            <input id="correo" type="text" class="form-control" placeholder="cuenta.michigeeks@outlook.com">
+            <label class="form-label" for="correo" id="labelCorreo">Correo electrónico</label>
+            <input id="correo" type="text" class="form-control" placeholder="20987n@office365.net">
           </div>
 
           <div class="col-md-6" id="grupoContrasena">
@@ -68,16 +68,16 @@
 
           <div class="col-md-6">
             <label class="form-label" for="numeroPedido">Número de pedido</label>
-            <input id="numeroPedido" type="text" class="form-control" placeholder="MG-0001">
+            <input id="numeroPedido" type="text" class="form-control" placeholder="261098">
           </div>
 
           <div class="col-md-6">
             <label class="form-label" for="monto">Monto (MXN)</label>
-            <input id="monto" type="number" step="0.01" class="form-control" placeholder="199">
+            <input id="monto" type="number" step="1" class="form-control" placeholder="125">
           </div>
 
           <div class="col-md-6">
-            <label class="form-label" for="diaTransaccion">Día de la transacción</label>
+            <label class="form-label" for="diaTransaccion">Día de la compra</label>
             <input id="diaTransaccion" type="date" class="form-control" onchange="actualizarFechaExpiracion()">
           </div>
 
@@ -86,9 +86,7 @@
             <div class="form-control bg-transparent text-secondary" id="previsualizacionExpiracion">
               Selecciona el día de la transacción
             </div>
-            <div class="form-text">
-              Se calcula sola: +1 año para Office 365, o + la duración elegida para Canva.
-            </div>
+
           </div>
 
         </div>
@@ -157,7 +155,7 @@ function actualizarCamposProducto() {
 
     document.getElementById("labelCorreo").textContent = esOffice
         ? "Correo electrónico generado"
-        : "Correo electrónico activado (el que indique el cliente)";
+        : "Correo electrónico activado (cliente)";
 
     actualizarFechaExpiracion();
 }
@@ -217,7 +215,7 @@ function generarURL() {
         diaTransaccion: dia,
         horaTransaccion: obtenerHoraCDMX(),
         fechaExpiracion: fechaExpiracionCalculada,
-        lugar: document.getElementById("lugar").value
+        lugar: document.getElementById("lugar").selectedOptions[0].text
     };
 
     if (esOffice) {
@@ -237,6 +235,18 @@ function generarURL() {
     resultado.classList.remove("d-none");
 
     document.getElementById("botonCopiar").classList.remove("d-none");
+
+    // Limpia el formulario para el siguiente ticket, sin tocar el
+    // enlace/resultado que se acaba de generar (ese se queda visible).
+    limpiarFormulario();
+}
+
+// Regresa el formulario a su estado inicial: campos de texto vacíos,
+// selects a su primera opción, y el día de la compra otra vez en "hoy".
+function limpiarFormulario() {
+    document.getElementById("formTicket").reset();
+    document.getElementById("diaTransaccion").value = obtenerFechaHoyCDMX();
+    actualizarCamposProducto();
 }
 
 async function copiarURL() {
